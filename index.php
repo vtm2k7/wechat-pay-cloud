@@ -28,7 +28,7 @@
         'openid' => $head['x-wx-openid'],
         'out_trade_no' =>  '2021WERUN'.$payid,
         'spbill_create_ip' => $head['x-forwarded-for'],
-        'env_id' => $head['x-wx-env'] : null,
+        'env_id' => $head['x-wx-env'],
         'sub_mch_id' =>  $mchid,
         'total_fee' =>  !empty($body["fee"]) ? $body["fee"] : 2,
         'callback_type' => 2,
