@@ -1,5 +1,5 @@
 <?php
-  $mchid = '';  // 将子商户ID填写到这里
+  $mchid = '1718031075';  // 将子商户ID填写到这里
   $head = getallheaders();
   $body = json_decode(file_get_contents('php://input'),true);
   error_log('----request header----'.json_encode($head),0);
