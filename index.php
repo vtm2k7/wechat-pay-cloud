@@ -4,12 +4,12 @@
   $body = json_decode(file_get_contents('php://input'),true);
   error_log('----request header----'.json_encode($head),0);
   error_log('----request body----'.json_encode($body),0);
-  
+
 $head = getallheaders();
 $headLower = array_change_key_case($head, CASE_LOWER);
 
 if (!in_array($headLower['x-wx-source'] ?? '', ['wx', 'other']) && empty($headLower['x-wx-local-debug'])) {
-    echo '非法途径';
+    echo '非法途径2';
     return 100;
 }
   if($body==null || empty($body["payid"])) {
