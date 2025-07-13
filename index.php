@@ -2,7 +2,7 @@
   $mchid = '1718031075';  // 将子商户ID填写到这里
   $head1 = getallheaders();
   $body = json_decode(file_get_contents('php://input'),true);
-  error_log('----request header----'.json_encode($head),0);
+  error_log('----request header----'.json_encode($head1),0);
   error_log('----request body----'.json_encode($body),0);
 
   $head = array_change_key_case($head1, CASE_LOWER);
