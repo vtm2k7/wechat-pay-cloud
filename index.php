@@ -1,17 +1,12 @@
 <?php
   $mchid = '1718031075';  // 将子商户ID填写到这里
-  $head = getallheaders();
+  $head1 = getallheaders();
   $body = json_decode(file_get_contents('php://input'),true);
   error_log('----request header----'.json_encode($head),0);
   error_log('----request body----'.json_encode($body),0);
 
-$head = getallheaders();
-$headLower = array_change_key_case($head, CASE_LOWER);
+  $head = array_change_key_case($head1, CASE_LOWER);
 
-if (!in_array($headLower['x-wx-source'] ?? '', ['wx', 'other']) && empty($headLower['x-wx-local-debug'])) {
-    echo '非法途径2';
-    return 100;
-}
   if($body==null || empty($body["payid"])) {
     if(empty($body["transactionId"])){
       echo sprintf('没有收到订单ID');
@@ -30,10 +25,10 @@ if (!in_array($headLower['x-wx-source'] ?? '', ['wx', 'other']) && empty($headLo
       $url = 'http://api.weixin.qq.com/_/pay/unifiedOrder';
       $param = array(
         'body' => !empty($body["paytext"]) ? $body["paytext"] : "测试微信支付",
-        'openid' => !empty($head['x-wx-openid']) ? $head['x-wx-openid'] : $head['X-WX-OPENID'],
+        'openid' => $head['x-wx-openid'],
         'out_trade_no' =>  '2021WERUN'.$payid,
-        'spbill_create_ip' =>  !empty($head['x-forwarded-for']) ? $head['x-forwarded-for'] : $head['X-Forwarded-For'],
-        'env_id' => !empty($head['x-wx-env']) ? $head['x-wx-env'] : null,
+        'spbill_create_ip' => $head['x-forwarded-for']),
+        'env_id' => $head['x-wx-env'],
         'sub_mch_id' =>  $mchid,
         'total_fee' =>  !empty($body["fee"]) ? $body["fee"] : 2,
         'callback_type' => 2,
@@ -60,7 +55,7 @@ if (!in_array($headLower['x-wx-source'] ?? '', ['wx', 'other']) && empty($headLo
         'body' => !empty($body["paytext"]) ? $body["paytext"] : "测试微信支付",
         'out_trade_no' =>  '2021WERUN'.$payid,
         'out_refund_no' => 'R2021WERUN'.$payid,
-        'env_id' => !empty($head['x-wx-env']) ? $head['x-wx-env'] : null,
+        'env_id' => $head['x-wx-env'],
         'sub_mch_id' =>  $mchid,
         'total_fee' =>  !empty($body["fee"]) ? $body["fee"] : 2,
         'refund_fee' => !empty($body["refundfee"]) ? $body["refundfee"] : 2,
