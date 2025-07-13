@@ -4,8 +4,8 @@
   $body = json_decode(file_get_contents('php://input'),true);
   error_log('----request header----'.json_encode($head),0);
   error_log('----request body----'.json_encode($body),0);
-  if(empty($head['x-wx-source'])&&empty($head['x-wx-local-debug'])){
-    echo sprintf('非法途径');
+  if (!in_array($head['x-wx-source'] ?? '', ['wx', 'other']) && empty($head['x-wx-local-debug'])) {
+    echo '非法途径';
     return 100;
   }
   if($body==null || empty($body["payid"])) {

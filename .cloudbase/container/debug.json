@@ -1,0 +1,24 @@
+{
+  "containers": [],
+  "config": {
+    "pay": {
+      "dockerfilePath": "Dockerfile",
+      "buildDir": "",
+      "containerPort": 80,
+      "envParams": {
+        "MYSQL_USERNAME": "",
+        "MYSQL_PASSWORD": "",
+        "MYSQL_ADDRESS": ""
+      },
+      "cpu": 0.5,
+      "mem": 1,
+      "policyType": "cpu",
+      "policyThreshold": 60,
+      "customLogs": "stdout",
+      "initialDelaySeconds": 2,
+      "minNum": 0,
+      "maxNum": 50,
+      "remark": ""
+    }
+  }
+}
